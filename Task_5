@@ -1,0 +1,53 @@
+namespace ConsoleApp68
+{
+    enum EmploymentStatus
+    {
+        Active,
+        OnLeave,
+        Terminated
+    }
+    class Employee
+    {
+        // поля
+        public string Name { get; set; }
+        public DateTime? HireDate { get; set; }
+        public EmploymentStatus Status { get; set; }
+
+        // метод
+        public int GetYearsWorked()
+        {
+            if (HireDate.HasValue)
+            {
+                int yearsWorked = DateTime.Now.Year - HireDate.Value.Year;
+                if (DateTime.Now < HireDate.Value.AddYears(yearsWorked))
+                {
+                    yearsWorked--;
+                }
+                return yearsWorked;
+            }
+            return -1;
+        }
+        public override string ToString()
+        {
+            return $"{Name}, Hire Date: {(HireDate.HasValue ? HireDate.Value.ToShortDateString() : "Нет данных")}, Status: {Status}, Years Worked: {GetYearsWorked()}";
+        }
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                var emp = new Employee
+                {
+                    Name = "Пётр",
+                    HireDate = new DateTime(2020, 3, 15),
+                    Status = EmploymentStatus.Active
+                };
+                Console.WriteLine(emp.GetYearsWorked());
+                emp.HireDate = null;
+                Console.WriteLine(emp.GetYearsWorked());
+                Console.WriteLine(emp);
+            }
+        }
+    }
+}
+
