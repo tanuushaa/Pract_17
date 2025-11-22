@@ -1,0 +1,19 @@
+namespace ConsoleApp65
+{
+    class Order
+    {
+        // поля
+        public int Id { get; set; }
+        public decimal Total { get; set; }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var order1 = new Order { Id = 1, Total = 1500.50m };
+            var order2 = order1;
+            order2.Total = 2000.00m;
+            Console.WriteLine(order1.Total);
+        }
+    }
+}
